@@ -1,0 +1,33 @@
+name: pet_care_app
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.3.4 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  google_fonts: ^6.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    # - 'image/Group 12.png'
+    # - 'image/Brandmark Logo.png'
+    # - 'image/image.png'
+    # - 'image/imj.png'
+    # - 'image/image (1).png'
+    # - 'image/image (5).png'
+    # - 'image/image (6).png'
+    - image/
+    - image/doctor/
+    - image/groming/
+    - image/shop/
+    - image/Training/

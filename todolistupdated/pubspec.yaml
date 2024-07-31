@@ -1,0 +1,29 @@
+name: todolistupdated
+description: A new Flutter project.
+publish_to: "none"
+version: 0.1.0
+
+environment:
+  sdk: ">=3.0.6 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  google_fonts: ^6.2.0
+  sqflite: ^2.3.2
+  path: ^1.9.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  intl: ^0.19.0
+  flutter_slidable: ^3.1.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - lib/image/image.jpg
+    - lib/image/lock.jpg
+    - lib/image/google.png
+    - lib/image/twi.png
+    - lib/image/ins.jpg
