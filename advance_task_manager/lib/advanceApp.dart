@@ -1,10 +1,10 @@
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sqflite/utils/utils.dart';
 import 'main.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-
 
 class AdvanceToDoList extends StatefulWidget {
   const AdvanceToDoList({super.key});
@@ -25,10 +25,18 @@ class _AdvanceToDoListState extends State {
     Modelclass(
         title: "shriram khade", desc: "flutter developer", date: "24 feb 2024")
   ];
-  @override
 
   // SlidableController slideControl = SlidableController(AnimationController());
+  int selectedIndex = -1;
+  Icon togleIcon(bool flag) {
+    if (flag == true) {
+      return const Icon(Icons.check_rounded);
+    }
 
+    return const Icon(Icons.circle_outlined);
+  }
+
+  bool flag = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,10 +45,10 @@ class _AdvanceToDoListState extends State {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children:  [
+              children: [
                 SizedBox(
                   height: 30,
                 ),
@@ -198,45 +206,72 @@ class _AdvanceToDoListState extends State {
                                                   ),
                                                 ),
                                               ]),
-                                              Column(
-                                                // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 4,
-                                                  ),
-                                                  Text(
-                                                    task[index].title,
-                                                    style: const TextStyle(
-                                                        fontSize: 15,
-                                                        fontWeight:
-                                                            FontWeight.w600),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      SizedBox(
-                                                        height: 40,
-                                                        //mobile change
-                                                        width: 250,
-                                                        child: Text(
-                                                            task[index].desc),
-                                                      ),
-                                                      const SizedBox(
-                                                        width: 10,
-                                                      ),
-                                                      const Icon(
-                                                          Icons.circle_outlined)
-                                                    ],
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Text(task[index].date)
-                                                ],
+                                              const SizedBox(
+                                                width: 5,
+                                              ),
+                                              Expanded(
+                                                child: Column(
+                                                  // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    const SizedBox(
+                                                      height: 4,
+                                                    ),
+                                                    Text(
+                                                      task[index].title,
+                                                      style:
+                                                          GoogleFonts.poppins(
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600),
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        SizedBox(
+                                                          // height: 40,
+                                                          //mobile change
+                                                          // width: 250,
+                                                          child: Text(
+                                                              task[index].desc,
+                                                              style: GoogleFonts.poppins(
+                                                                  fontSize: 15,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400)),
+                                                        ),
+                                                        const SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                        const Spacer(),
+                                                        GestureDetector(
+                                                            onTap: () {
+                                                              selectedIndex =
+                                                                  index;
+                                                              togleIcon(true);
+                                                              setState(() {});
+                                                            },
+                                                            child:
+                                                                togleIcon(true)
+
+                                                            // size: ,
+
+                                                            ),
+                                                        const SizedBox(
+                                                          width: 10,
+                                                        )
+                                                      ],
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                    Text(task[index].date)
+                                                  ],
+                                                ),
                                               )
                                             ],
                                           ),
@@ -305,117 +340,144 @@ class _AdvanceToDoListState extends State {
     }
 
     showModalBottomSheet(
+        scrollControlDisabledMaxHeightRatio: 0.8,
+        // isScrollControlled: true,
         context: context, //context,
         builder: ((context) {
-          return Column(
-            children: [
-              const Text(
-                "CREATE TO DO ",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text("title"),
-                  TextFormField(
-                    controller: _title,
-                    //controller: titleController,
-                    decoration: InputDecoration(
-                      hintText: "Enter Title",
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(
-                          color: Color.fromRGBO(89, 57, 241, 1),
-                        ),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.red),
-                        borderRadius: BorderRadius.circular(12),
+          return Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "CREATE TO DO ",
+                      style: GoogleFonts.poppins(
+                          fontSize: 22, fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                ),
+                Text("Title",
+                    style: GoogleFonts.poppins(
+                        fontSize: 18, fontWeight: FontWeight.w500)),
+                TextFormField(
+                  controller: _title,
+                  //controller: titleController,
+                  decoration: InputDecoration(
+                    hintText: "Enter Title",
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(
+                        color: Color.fromRGBO(89, 57, 241, 1),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text("Description"),
-                  TextFormField(
-                    controller: _desc,
-                    //controller: titleController,
-                    decoration: InputDecoration(
-                      hintText: "Enter Description",
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(
-                          color: Color.fromRGBO(89, 57, 241, 1),
-                        ),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.red),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.red),
+                      borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text("Date"),
-                  TextFormField(
-                    controller: _date,
-                    //controller: titleController,
-                    decoration: InputDecoration(
-                      hintText: "Enter Date",
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(
-                          color: Color.fromRGBO(89, 57, 241, 1),
-                        ),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.red),
-                        borderRadius: BorderRadius.circular(12),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text("Description",
+                    style: GoogleFonts.poppins(
+                        fontSize: 18, fontWeight: FontWeight.w500)),
+                TextFormField(
+                  maxLines: 4,
+                  controller: _desc,
+                  //controller: titleController,
+                  decoration: InputDecoration(
+                    hintText: "Enter Description",
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(
+                        color: Color.fromRGBO(89, 57, 241, 1),
                       ),
                     ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.red),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                   ),
-                ],
-              ),
-              ElevatedButton(
-                  onPressed: () async {
-                    if (flag == true) {
-                      if (_date.text.isNotEmpty &&
-                          _desc.text.isNotEmpty &&
-                          _title.text.isNotEmpty) {
-                        submitTask();
-                      }
-                    } else {
-                      obj = ToDoClass(
-                          ind: obj!.ind,
-                          title: _title.text,
-                          desc: _desc.text,
-                          date: _date.text);
-                      await updateToDoClassData(obj!);
-                    }
-          
-                    task = await getToDoClassData();
-          
-                    clearController();
-          
-                    // setState(() {});
-                  },
-                  child: const Text("submit"))
-            ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text("Date",
+                    style: GoogleFonts.poppins(
+                        fontSize: 18, fontWeight: FontWeight.w500)),
+                TextFormField(
+                  controller: _date,
+                  //controller: titleController,
+                  decoration: InputDecoration(
+                    hintText: "Enter Date",
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(
+                        color: Color.fromRGBO(89, 57, 241, 1),
+                      ),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.red),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                        onTap: () async {
+                          if (flag == true) {
+                            if (_date.text.isNotEmpty &&
+                                _desc.text.isNotEmpty &&
+                                _title.text.isNotEmpty) {
+                              submitTask();
+                            }
+                          } else {
+                            obj = ToDoClass(
+                                ind: obj!.ind,
+                                title: _title.text,
+                                desc: _desc.text,
+                                date: _date.text);
+                            await updateToDoClassData(obj!);
+                          }
+
+                          task = await getToDoClassData();
+
+                          clearController();
+
+                          // setState(() {});
+                        },
+                        child: Container(
+                            padding: const EdgeInsets.all(15),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Color.fromARGB(255, 34, 234, 148)),
+                            child: Text("submit",
+                                style: GoogleFonts.poppins(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                )))),
+                  ],
+                )
+              ],
+            ),
           );
         }));
   }
