@@ -14,9 +14,8 @@ late WebViewController _controller;
 class _WebViewDataState extends State<WebViewData> {
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
     _controller = WebViewController()..loadRequest(Uri.parse(widget.url));
+    super.initState();
   }
 
   @override
